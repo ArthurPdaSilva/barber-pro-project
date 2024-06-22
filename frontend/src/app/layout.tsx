@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import Head from "next/head";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -10,6 +11,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Barber Pro",
   description: "Barber Pro é uma plataforma de agendamento de barbearias.",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -19,6 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="icon" href="/logo.svg" />
+      </Head>
       <body className={poppins.className}>{children}</body>
     </html>
   );

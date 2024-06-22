@@ -1,4 +1,5 @@
 import StarterLink from "@/components/StarterLink";
+import Form from "@/features/login/Form";
 import { Metadata } from "next";
 import Image from "next/image";
 
@@ -9,27 +10,13 @@ export const metadata: Metadata = {
 
 const Login = () => {
   return (
-    <div className="flex flex-col flex- bg-primary h-screen justify-center items-center gap-16">
+    <div className="flex flex-col bg-primary h-screen justify-center items-center gap-16">
       <Image src="logo.svg" alt="Login" width={274} height={117} />
-      <form className="flex flex-col gap-6 w-2/4 ">
-        <input
-          className="text-white bg-secondary p-2 rounded"
-          type="text"
-          placeholder="Digite seu email"
-        />
-        <input
-          className=" text-white bg-secondary p-2 rounded"
-          type="password"
-          placeholder="*******"
-        />
-        <button className="bg-terciary rounded text-white p-2" type="submit">
-          Acessar
-        </button>
-      </form>
+      <Form />
       <StarterLink
         href="/register"
         text="Não possui uma conta?"
-        textLink="Clique Aqui."
+        textLink="Criar conta."
       />
     </div>
   );
