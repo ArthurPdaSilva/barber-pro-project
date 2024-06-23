@@ -1,3 +1,4 @@
+import MenuSidebar from "@/features/home/MenuSidebar";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Head from "next/head";
@@ -26,7 +27,12 @@ export default function RootLayout({
       <Head>
         <link rel="icon" href="/logo.svg" />
       </Head>
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <div className="flex flex-col bg-primary h-screen sm:flex-row">
+          <MenuSidebar />
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

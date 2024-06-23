@@ -1,4 +1,5 @@
 "use client";
+import FormButton from "@/components/FormButton";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
@@ -60,12 +61,7 @@ const Form = () => {
         name="password"
         required
       />
-      <button
-        className="bg-terciary rounded font-bold text-white p-2"
-        type="submit"
-      >
-        Acessar
-      </button>
+      <FormButton />
     </form>
   );
 };
