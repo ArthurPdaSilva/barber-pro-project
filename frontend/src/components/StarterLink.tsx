@@ -6,7 +6,7 @@ type StarterLinkProps = {
   textLink: string;
 };
 
-const StarterLink = ({ href, text, textLink }: StarterLinkProps) => {
+export const StarterLink = ({ href, text, textLink }: StarterLinkProps) => {
   return (
     <p className="text-white">
       {text}{" "}
@@ -16,5 +16,3 @@ const StarterLink = ({ href, text, textLink }: StarterLinkProps) => {
     </p>
   );
 };
-
-export default StarterLink;

@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import MenuList from "./MenuList";
+import { MenuList } from "./MenuList";
 
-const MenuSidebar = () => {
+export const MenuSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex flex-row p-8 bg-secondary gap-7  sm:flex-col z-30 relative">
@@ -18,7 +18,7 @@ const MenuSidebar = () => {
       <Image
         className="sm:mb-11"
         src="logo.svg"
-        alt="Login"
+        alt="Logo"
         width={155}
         height={42}
       />
@@ -26,5 +26,3 @@ const MenuSidebar = () => {
     </div>
   );
 };
-
-export default MenuSidebar;

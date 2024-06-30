@@ -1,10 +1,10 @@
 "use client";
-import FormButton from "@/components/FormButton";
+import { FormButton } from "@/components/FormButton";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 
-const Form = () => {
+export const Form = () => {
   const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -65,5 +65,3 @@ const Form = () => {
     </form>
   );
 };
-
-export default Form;

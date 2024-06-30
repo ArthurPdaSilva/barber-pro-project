@@ -5,7 +5,7 @@ type MenuListProps = {
   isOpen: boolean;
 };
 
-const MenuList = ({ isOpen }: MenuListProps) => {
+export const MenuList = ({ isOpen }: MenuListProps) => {
   return (
     <ul
       className={`absolute left-0 flex-col gap-5 mr-20 transform transition-transform duration-200 ${
@@ -50,5 +50,3 @@ const MenuList = ({ isOpen }: MenuListProps) => {
     </ul>
   );
 };
-
-export default MenuList;

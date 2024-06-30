@@ -1,5 +1,5 @@
-import StarterLink from "@/components/StarterLink";
-import Form from "@/features/register/Form";
+import { StarterLink } from "@/components/StarterLink";
+import { Form } from "@/features/register/Form";
 import { Metadata } from "next";
 import Image from "next/image";
 

@@ -1,5 +1,5 @@
+import { ScheduleClient } from "@/types";
 import Image from "next/image";
-import { ScheduleClient } from ".";
 
 type ModalProps = {
   client: ScheduleClient | null;
