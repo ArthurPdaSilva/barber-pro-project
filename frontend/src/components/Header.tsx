@@ -5,7 +5,7 @@ type HeaderAddProps = {
   link: string;
 };
 
-export const HeaderAdd = ({ link, title }: HeaderAddProps) => {
+export const Header = ({ link, title }: HeaderAddProps) => {
   return (
     <div className="flex gap-4 mt-16 flex-wrap ">
       <Link

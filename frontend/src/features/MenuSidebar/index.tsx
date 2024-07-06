@@ -17,7 +17,7 @@ export const MenuSidebar = () => {
       />
       <Image
         className="sm:mb-11"
-        src="logo.svg"
+        src="/logo.svg"
         alt="Logo"
         width={155}
         height={42}

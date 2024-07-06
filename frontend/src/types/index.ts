@@ -5,7 +5,8 @@ export type ScheduleClient = {
   price: number;
 };
 
-export type haircut = {
+export type HaircutType = {
   id: number;
   name: string;
+  price: number;
 };

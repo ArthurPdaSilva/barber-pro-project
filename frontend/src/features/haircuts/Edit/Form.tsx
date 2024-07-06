@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 
 type FormProps = {
-  data: HaircutType[];
+  haircut: HaircutType;
 };
 
-export const Form = ({ data }: FormProps) => {
+export const Form = ({ haircut }: FormProps) => {
   const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -16,25 +16,27 @@ export const Form = ({ data }: FormProps) => {
 
     const formData = new FormData(event.currentTarget);
     const name = formData.get("name");
-    const haircuts = formData.get("haircuts");
+    const price = formData.get("price");
 
     try {
-      const response = await fetch("http://localhost:3001/add-schedule", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, haircuts }),
-      });
+      const response = await fetch(
+        `http://localhost:3001/edit-haircut/${haircut.id}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, price }),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error("Não foi possível adicionar o agendamento");
+        throw new Error("Não foi possível criar um novo corte de cabelo");
       }
 
-      router.push("/");
+      router.push("/haircuts");
     } catch (error) {
       console.error(error);
     }
   }
-
   return (
     <form
       className="flex flex-col gap-6 p-10 bg-secondary rounded"
@@ -43,18 +45,20 @@ export const Form = ({ data }: FormProps) => {
       <input
         className="text-white bg-primary p-4 rounded"
         type="text"
-        placeholder="Digite o nome do cliente"
+        placeholder="Nome do corte"
         name="name"
+        value={haircut.name}
         required
       />
-      <select className="text-white bg-primary p-4 rounded" name="haircuts">
-        {data.map((haircut: HaircutType) => (
-          <option key={haircut.id} value={haircut.id}>
-            {haircut.name}
-          </option>
-        ))}
-      </select>
-      <FormButton text="Registrar" />
+      <input
+        className="text-white bg-primary p-4 rounded"
+        type="text"
+        placeholder="Preço por exemplo: 45,90"
+        name="price"
+        value={haircut.price}
+        required
+      />
+      <FormButton text="Cadastrar" />
     </form>
   );
 };
