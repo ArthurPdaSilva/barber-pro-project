@@ -10,3 +10,9 @@ export type HaircutType = {
   name: string;
   price: number;
 };
+
+export type User = {
+  id: number;
+  barberName: string;
+  address: string;
+};

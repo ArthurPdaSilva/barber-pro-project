@@ -1,42 +1,43 @@
 "use client";
 import { FormButton } from "@/components/FormButton";
-import { HaircutType } from "@/types";
+import { User } from "@/types";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 
 type FormProps = {
-  haircut: HaircutType;
+  user: User;
 };
 
-export const Form = ({ haircut }: FormProps) => {
+export const Form = ({ user }: FormProps) => {
   const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const name = formData.get("name");
-    const price = formData.get("price");
+    const barberName = formData.get("barberName");
+    const address = formData.get("address");
 
     try {
       const response = await fetch(
-        `http://localhost:3001/edit-haircut/${haircut.id}`,
+        `http://localhost:3001/edit-user/${user.id}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, price }),
+          body: JSON.stringify({ barberName, address }),
         }
       );
 
       if (!response.ok) {
-        throw new Error("Não foi possível criar um novo corte de cabelo");
+        throw new Error("Não foi possível editar ");
       }
 
-      router.push("/haircuts");
+      router.push("/");
     } catch (error) {
       console.error(error);
     }
   }
+
   return (
     <form
       className="flex flex-col gap-6 p-10 bg-secondary rounded"
@@ -45,20 +46,26 @@ export const Form = ({ haircut }: FormProps) => {
       <input
         className="text-white bg-primary p-4 rounded"
         type="text"
-        placeholder="Nome do corte"
-        name="name"
-        defaultValue={haircut.name}
+        placeholder="Nome da barbearia"
+        name="barberName"
+        defaultValue={user.barberName}
         required
       />
       <input
         className="text-white bg-primary p-4 rounded"
         type="text"
-        placeholder="Preço por exemplo: 45,90"
-        name="price"
-        defaultValue={haircut.price}
+        placeholder="Endereço da barbearia"
+        name="address"
+        defaultValue={user.address}
         required
       />
-      <FormButton text="Cadastrar" />
+      <FormButton text="Salvar" />
+      <button
+        className="border-red-700 border hover:bg-red-500 rounded text-red-700 p-2 font-bold transition-colors duration-300"
+        type="submit"
+      >
+        Sair da conta
+      </button>
     </form>
   );
 };
