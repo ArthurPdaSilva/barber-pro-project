@@ -16,7 +16,7 @@ export const Modal = ({ client, handleClose, open }: ModalProps) => {
         open ? "flex" : "hidden"
       } `}
     >
-      <div className="flex flex-col bg-secondary p-4 gap-4 w-3/12 m-auto rounded">
+      <div className="flex flex-col bg-secondary p-4 gap-4 min-w-3/12 m-auto rounded">
         <h1 className="text-white text-2xl font-semibold">Próximo</h1>
         <ul>
           <li className="bg-secondary flex p-1 text-white gap-5 text-lg w-full">

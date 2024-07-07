@@ -1,0 +1,46 @@
+1 - (Como criar tokens jwt e fazer autenticação de sessão em java) - spring || adicionar Swagger no spring
+2- Configurar o CORS
+3 - Criar entidade da sessão
+User {
+  id GUID  auto incremental,
+  barberName: string,
+  email: string,
+  password (criptogrado) string,
+  address: string
+}
+
+.Rota → retorno | especificação
+body == { objeto }
+4 - register({barberName, email, password}) → token (sessão) 1h.
+5 - login({email, password}) → token (sessão) 1h.
+criar middleware para checar se o cabeçalho tem um token e se o token válido em todas as rotas privadas
+6 - getUser(id) → User 
+7 - editUser(id (do user), {name address}) → mensagem de sucesso ou de fracasso
+8 - createHaircut(id (do user), {name, price}) → mensagem de sucesso ou de fracasso
+Haircut {
+   id GUID  auto incremental,
+   name: string,
+   price: float,
+   User: User
+}
+
+9 - editHaircut(id (do user), {id (do corte), name, price}) → mensagem de sucesso ou de fracasso
+10 - getHaircuts(id (do user)) → Lista de cortes
+11 - createSchedule(id (do user), {name, haircut_id}) → mensagem de sucesso ou de fracasso
+12 - editSchedule(id (do user), {id (do schedule), name, haircut_id}) → mensagem de sucesso ou de fracasso
+13- getSchedulers(id (do user)) → Lista de agendas
+
+Schedule {
+  id GUID  auto incremental,
+  customerName: string,
+  haircut: Haircut // → usuário
+  user: User // Vc escolhe
+}
+
+
+//Desafio: fazer paginação
+//Objetos de estudo:
+Configurar o CORS
+(Como criar tokens jwt e fazer autenticação de sessão em java) - spring
+criar middleware para checar se o cabeçalho tem um token e se o token válido em todas 
+adicionar Swagger no spring
