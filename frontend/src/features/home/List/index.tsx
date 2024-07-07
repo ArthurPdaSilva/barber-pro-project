@@ -1,11 +1,6 @@
+import { getSchedules } from "@/lib/actions";
 import { ScheduleClient } from "@/types";
 import { ListItem } from "./ListItem";
-
-async function getSchedules() {
-  const response = await fetch("http://localhost:3001/schedules");
-  const data = await response.json();
-  return data;
-}
 
 export const List = async () => {
   const data = await getSchedules();

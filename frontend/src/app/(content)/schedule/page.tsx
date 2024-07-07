@@ -1,14 +1,9 @@
 import { Header } from "@/components/Header";
 import { Form } from "@/features/schedule/Form";
-
-async function gethaircuts() {
-  const response = await fetch("http://localhost:3001/haircuts");
-  const data = await response.json();
-  return data;
-}
+import { getHaicuts } from "@/lib/actions";
 
 const Schedule = async () => {
-  const data = await gethaircuts();
+  const data = await getHaicuts();
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-12">
