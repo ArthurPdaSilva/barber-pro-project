@@ -16,10 +16,12 @@ export const ListItem = ({ haircutType }: ListItemProps) => {
         </span>
         <span
           className={
-            Number(25) > 0 ? " mr-5 text-green-500" : " mr-5 text-red-500"
+            haircutType.price > 0
+              ? " mr-5 text-green-500"
+              : " mr-5 text-red-500"
           }
         >
-          R${Number(25).toFixed(2)}
+          R${haircutType.price.toFixed(2)}
         </span>
       </li>
     </Link>

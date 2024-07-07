@@ -1,11 +1,6 @@
+import { getHaicuts } from "@/lib/actions";
 import { HaircutType } from "@/types";
 import { ListItem } from "./ListItem";
-
-async function getHaicuts() {
-  const response = await fetch("http://localhost:3001/haircuts");
-  const data = await response.json();
-  return data;
-}
 
 export const List = async () => {
   const data = await getHaicuts();

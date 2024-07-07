@@ -1,38 +1,12 @@
 "use client";
 import { FormButton } from "@/components/FormButton";
-import { useRouter } from "next/navigation";
-import { FormEvent } from "react";
+import { addHaircut } from "@/lib/actions";
 
 export const Form = () => {
-  const router = useRouter();
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const name = formData.get("name");
-    const price = formData.get("price");
-
-    try {
-      const response = await fetch("http://localhost:3001/add-haircut", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, price }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Não foi possível criar um novo corte de cabelo");
-      }
-
-      router.push("/haircuts");
-    } catch (error) {
-      console.error(error);
-    }
-  }
   return (
     <form
       className="flex flex-col gap-6 p-10 bg-secondary rounded"
-      onSubmit={handleSubmit}
+      action={addHaircut}
     >
       <input
         className="text-white bg-primary p-4 rounded"

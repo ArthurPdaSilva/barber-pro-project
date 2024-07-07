@@ -1,7 +1,6 @@
-"use client";
 import { FormButton } from "@/components/FormButton";
 import { HaircutType } from "@/types";
-import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { FormEvent } from "react";
 
 type FormProps = {
@@ -9,8 +8,6 @@ type FormProps = {
 };
 
 export const Form = ({ haircut }: FormProps) => {
-  const router = useRouter();
-
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -32,7 +29,7 @@ export const Form = ({ haircut }: FormProps) => {
         throw new Error("Não foi possível criar um novo corte de cabelo");
       }
 
-      router.push("/haircuts");
+      revalidatePath("(content)/haircuts");
     } catch (error) {
       console.error(error);
     }
