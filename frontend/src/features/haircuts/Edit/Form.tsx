@@ -1,16 +1,31 @@
+"use client";
 import { FormButton } from "@/components/FormButton";
 import { editHaircut } from "@/lib/actions";
 import { HaircutType } from "@/types";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 type FormProps = {
   haircut: HaircutType;
 };
 
 export const Form = ({ haircut }: FormProps) => {
+  const router = useRouter();
+
+  async function clientEditHaircut(formData: FormData) {
+    const response = await editHaircut(formData);
+    if (!response.success) {
+      toast.error(response.message);
+      return;
+    }
+    toast.success(response.message);
+    router.push("/haircuts");
+  }
+
   return (
     <form
       className="flex flex-col gap-6 p-10 bg-secondary rounded"
-      action={editHaircut}
+      action={clientEditHaircut}
     >
       <input type="hidden" name="haircutId" value={haircut.id} />
       <input

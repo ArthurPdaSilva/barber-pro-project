@@ -1,12 +1,26 @@
 "use client";
 import { FormButton } from "@/components/FormButton";
 import { addHaircut } from "@/lib/actions";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export const Form = () => {
+  const router = useRouter();
+
+  async function clientAddHaircut(formData: FormData) {
+    const response = await addHaircut(formData);
+    if (!response.success) {
+      toast.error(response.message);
+      return;
+    }
+    toast.success(response.message);
+    router.push("/haircuts");
+  }
+
   return (
     <form
       className="flex flex-col gap-6 p-10 bg-secondary rounded"
-      action={addHaircut}
+      action={clientAddHaircut}
     >
       <input
         className="text-white bg-primary p-4 rounded"

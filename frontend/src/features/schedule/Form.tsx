@@ -1,8 +1,9 @@
 "use client";
 import { FormButton } from "@/components/FormButton";
+import { addSchedule } from "@/lib/actions";
 import { HaircutType } from "@/types";
 import { useRouter } from "next/navigation";
-import { FormEvent } from "react";
+import { toast } from "react-toastify";
 
 type FormProps = {
   data: HaircutType[];
@@ -11,34 +12,20 @@ type FormProps = {
 export const Form = ({ data }: FormProps) => {
   const router = useRouter();
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const name = formData.get("name");
-    const haircuts = formData.get("haircuts");
-
-    try {
-      const response = await fetch("http://localhost:3001/add-schedule", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, haircuts }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Não foi possível adicionar o agendamento");
-      }
-
-      router.push("/");
-    } catch (error) {
-      console.error(error);
+  async function clientAddSchedule(formData: FormData) {
+    const response = await addSchedule(formData);
+    if (!response.success) {
+      toast.error(response.message);
+      return;
     }
+    toast.success(response.message);
+    router.push("/");
   }
 
   return (
     <form
       className="flex flex-col gap-6 p-10 bg-secondary rounded"
-      onSubmit={handleSubmit}
+      action={clientAddSchedule}
     >
       <input
         className="text-white bg-primary p-4 rounded"

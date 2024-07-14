@@ -1,8 +1,8 @@
 export type ScheduleClient = {
   id: string;
   name: string;
-  type: string;
   price: number;
+  type: string;
 };
 
 export type HaircutType = {

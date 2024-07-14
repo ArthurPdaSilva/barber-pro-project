@@ -1,5 +1,6 @@
 import { ScheduleClient } from "@/types";
 import Image from "next/image";
+import { FormButton } from "./FormButton";
 
 type ModalProps = {
   client: ScheduleClient | null;
@@ -48,12 +49,7 @@ export const Modal = ({ client, handleClose, open }: ModalProps) => {
             </span>
           </li>
         </ul>
-        <button
-          className="bg-terciary text-white font-bold p-2 rounded"
-          onClick={handleClose}
-        >
-          Finalizar Serviço
-        </button>
+        <FormButton scheduleId={client.id} handleClose={handleClose} />
       </div>
     </div>
   );

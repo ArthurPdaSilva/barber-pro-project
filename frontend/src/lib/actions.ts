@@ -58,7 +58,7 @@ export async function register(formData: FormData): Promise<OperationResult> {
     });
 
     if (!response.ok) {
-      throw new Error("Não foi possível fazer cadastro");
+      throw new Error();
     }
 
     const { token } = await response.json();
@@ -80,7 +80,7 @@ export async function register(formData: FormData): Promise<OperationResult> {
   }
 }
 
-export async function addHaircut(formData: FormData) {
+export async function addHaircut(formData: FormData): Promise<OperationResult> {
   const name = formData.get("name");
   const price = formData.get("price");
 
@@ -96,16 +96,25 @@ export async function addHaircut(formData: FormData) {
     });
 
     if (!response.ok) {
-      throw new Error("Não foi possível criar um novo corte de cabelo");
+      throw new Error();
     }
 
     revalidatePath("/haircuts");
+    return {
+      success: true,
+      message: "Corte de cabelo criado com sucesso",
+    };
   } catch (error) {
-    console.error(error);
+    return {
+      success: false,
+      message: "Não foi possível criar um novo corte de cabelo",
+    };
   }
 }
 
-export async function editHaircut(formData: FormData) {
+export async function editHaircut(
+  formData: FormData
+): Promise<OperationResult> {
   const haircutId = formData.get("haircutId");
   const name = formData.get("name");
   const price = formData.get("price");
@@ -125,12 +134,19 @@ export async function editHaircut(formData: FormData) {
     );
 
     if (!response.ok) {
-      throw new Error("Não foi possível editar um corte de cabelo");
+      throw new Error();
     }
 
     revalidatePath("/haircuts");
+    return {
+      success: true,
+      message: "Corte de cabelo editado com sucesso",
+    };
   } catch (error) {
-    console.error(error);
+    return {
+      success: false,
+      message: "Não foi possível editar o corte de cabelo",
+    };
   }
 }
 
@@ -140,7 +156,7 @@ export async function getHaicuts() {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching haircuts:", error);
+    console.error("Falha ao buscar cortes", error);
     throw error;
   }
 }
@@ -151,7 +167,7 @@ export async function getSchedules() {
   return data;
 }
 
-export async function editUser(formData: FormData) {
+export async function editUser(formData: FormData): Promise<OperationResult> {
   const barberName = formData.get("barberName");
   const address = formData.get("address");
 
@@ -163,11 +179,79 @@ export async function editUser(formData: FormData) {
     });
 
     if (!response.ok) {
-      throw new Error("Não foi possível editar o usuário");
+      throw new Error();
     }
 
     revalidatePath("/");
+    return {
+      success: true,
+      message: "Usuário editado com sucesso",
+    };
   } catch (error) {
-    console.error(error);
+    return {
+      success: false,
+      message: "Não foi possível editar o usuário",
+    };
+  }
+}
+
+export async function addSchedule(
+  formData: FormData
+): Promise<OperationResult> {
+  const name = formData.get("name");
+  const haircutId = formData.get("haircuts");
+
+  try {
+    const response = await fetch("http://localhost:3001/add-schedule", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, haircutId }),
+    });
+
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    revalidatePath("/schedule");
+    return {
+      success: true,
+      message: "Agendamento feito com sucesso",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: "Não foi possível fazer o agendamento",
+    };
+  }
+}
+
+export async function finishSchedule(
+  formData: FormData
+): Promise<OperationResult> {
+  const scheduleId = formData.get("scheduleId");
+
+  try {
+    const response = await fetch(
+      `http://localhost:3001/finish-schedule/${scheduleId}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    revalidatePath("/schedule");
+    return {
+      success: true,
+      message: "Agendamento finalizado",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: "Não foi possível finalizar o agendamento",
+    };
   }
 }
