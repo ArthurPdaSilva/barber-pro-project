@@ -9,7 +9,7 @@ export const Form = () => {
 
   async function clientLogin(formData: FormData) {
     const response = await login(formData);
-    if (response.error) {
+    if (!response.success) {
       toast.error(response.message);
       return;
     }

@@ -1,11 +1,12 @@
 "use server";
+import { OperationResult } from "@/types";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export async function login(formData: FormData) {
+export async function login(formData: FormData): Promise<OperationResult> {
   const email = formData.get("email");
   const password = formData.get("password");
 
@@ -28,12 +29,12 @@ export async function login(formData: FormData) {
     });
 
     return {
-      error: false,
+      success: true,
       message: "Login feito com sucesso",
     };
   } catch (error) {
     return {
-      error: true,
+      success: false,
       message: "Não foi possível fazer login",
     };
   }
@@ -44,7 +45,7 @@ export async function logout() {
   redirect("/login");
 }
 
-export async function register(formData: FormData) {
+export async function register(formData: FormData): Promise<OperationResult> {
   const barberName = formData.get("barberName");
   const email = formData.get("email");
   const password = formData.get("password");
@@ -68,12 +69,12 @@ export async function register(formData: FormData) {
     });
 
     return {
-      error: false,
+      success: true,
       message: "Cadastro feito com sucesso",
     };
   } catch (error) {
     return {
-      error: true,
+      success: false,
       message: "Não foi possível fazer o cadastro",
     };
   }

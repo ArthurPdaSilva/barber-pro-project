@@ -9,7 +9,7 @@ export const Form = () => {
 
   async function clientRegister(formData: FormData) {
     const response = await register(formData);
-    if (response.error) {
+    if (!response.success) {
       toast.error(response.message);
       return;
     }

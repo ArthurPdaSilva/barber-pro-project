@@ -16,3 +16,8 @@ export type User = {
   barberName: string;
   address: string;
 };
+
+export type OperationResult = {
+  success: boolean;
+  message: string;
+};
