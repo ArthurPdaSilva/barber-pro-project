@@ -27,10 +27,21 @@ export async function login(formData: FormData) {
       httpOnly: true,
     });
 
-    redirect("/");
+    return {
+      error: false,
+      message: "Login feito com sucesso",
+    };
   } catch (error) {
-    console.error(error);
+    return {
+      error: true,
+      message: "Não foi possível fazer login",
+    };
   }
+}
+
+export async function logout() {
+  cookies().delete("nextauth.token");
+  redirect("/login");
 }
 
 export async function register(formData: FormData) {
@@ -55,9 +66,16 @@ export async function register(formData: FormData) {
       maxAge: 3600,
       httpOnly: true,
     });
-    Response.redirect("/err");
+
+    return {
+      error: false,
+      message: "Cadastro feito com sucesso",
+    };
   } catch (error) {
-    console.error(error);
+    return {
+      error: true,
+      message: "Não foi possível fazer o cadastro",
+    };
   }
 }
 
@@ -130,4 +148,25 @@ export async function getSchedules() {
   const response = await fetch("http://localhost:3001/schedules");
   const data = await response.json();
   return data;
+}
+
+export async function editUser(formData: FormData) {
+  const barberName = formData.get("barberName");
+  const address = formData.get("address");
+
+  try {
+    const response = await fetch("http://localhost:3001/edit-user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ barberName, address }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Não foi possível editar o usuário");
+    }
+
+    revalidatePath("/");
+  } catch (error) {
+    console.error(error);
+  }
 }
